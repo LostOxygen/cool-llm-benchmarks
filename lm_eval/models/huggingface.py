@@ -551,8 +551,10 @@ class HFLM(LM):
 
     def _encode_pair(self, context, continuation):
         n_spaces = len(context) - len(context.rstrip())
+        print("N_SPACES: ", n_spaces)
         if n_spaces > 0:
             continuation = context[-n_spaces:] + continuation
+            print("CONTINUATION: ", continuation)
             context = context[:-n_spaces]
 
         whole_enc = self.tok_encode(context + continuation, add_special_tokens=False)
