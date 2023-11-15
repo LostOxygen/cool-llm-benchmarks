@@ -118,6 +118,7 @@ class OpenaiCompletionsLM(LM):
         raise NotImplementedError()
 
     def tok_encode(self, string: str) -> List[int]:
+        print("CONTEXT:", string)
         return self.tokenizer.encode(string)
 
     def tok_decode(self, tokens: List[int]) -> str:
