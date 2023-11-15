@@ -437,7 +437,6 @@ class HFLM(LM):
             {system_prompts[str(random.randint(0, len(system_prompts) - 1))]}
             <</SYS>>
             {string}
-            [/INST]
         """
 
         encoding = self.tokenizer.encode(formatted_messages, add_special_tokens=add_special_tokens)
