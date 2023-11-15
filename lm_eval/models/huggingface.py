@@ -26,7 +26,7 @@ from lm_eval.utils import MultiTokenEOSCriteria, stop_sequences_criteria
 from accelerate import Accelerator, find_executable_batch_size, DistributedType
 from typing import List, Optional, Union
 
-from system_prompts import system_prompts
+from lm_eval.models.system_prompts import system_prompts
 
 
 def _get_accelerate_args(
