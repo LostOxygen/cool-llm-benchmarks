@@ -234,6 +234,7 @@ class OpenaiCompletionsLM(LM):
         ):
             inps = []
             for context, _ in chunk:
+                print("CONTEXT:", context)
                 context_enc = self.tok_encode(context)
                 inp = context_enc[-(self.max_length - self.max_gen_toks) :]
                 inps.append(inp)
