@@ -428,6 +428,7 @@ class HFLM(LM):
             elif self.AUTO_MODEL_CLASS == transformers.AutoModelForSeq2SeqLM:
                 add_special_tokens = True
 
+        print("TOK_ENCODE_STRING: ", string)
         encoding = self.tokenizer.encode(string, add_special_tokens=add_special_tokens)
 
         # left-truncate the encoded context to be at most `left_truncate_len` tokens long
