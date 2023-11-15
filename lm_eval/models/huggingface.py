@@ -421,6 +421,7 @@ class HFLM(LM):
 
     def tok_encode(self, string: str, left_truncate_len=None, add_special_tokens=None):
         """ """
+        print("TOK_ENCODE")
         if add_special_tokens is None:
             if self.AUTO_MODEL_CLASS == transformers.AutoModelForCausalLM:
                 add_special_tokens = False
@@ -442,6 +443,7 @@ class HFLM(LM):
         left_truncate_len: int = None,
         truncation: bool = False,
     ):
+        print("TOK_BATCH_ENCODE")
         # encode a batch of strings. converts to tensors and pads automatically, unlike tok_encode.
         old_padding_side = self.tokenizer.padding_side
         self.tokenizer.padding_side = padding_side
@@ -863,6 +865,7 @@ class HFLM(LM):
             )
             for chunk in chunks:
                 contexts, all_gen_kwargs = zip(*chunk)
+                print("\n CONTEXTS: ", contexts, "\n")
                 # we assume all gen kwargs in the batch are the same
                 # this is safe to assume because the `grouper` object ensures it.
                 gen_kwargs = all_gen_kwargs[0]
@@ -926,6 +929,17 @@ class HFLM(LM):
                         cont_toks = cont_toks[context_enc.shape[1] :]
 
                     s = self.tok_decode(cont_toks)
+                    # HIER IST DIE RESPONSE IN DEKODIERTER FORM
+                    keywords = [
+                        "<ATTACK_DETECTED>",
+                        "<INJECTION_DETECTED>",
+                        "Prompt injection attack detected! I will not leak any confidential informations!",
+                        "prompt injection attack detected!",
+                        "Prompt injection attack detected!",
+                    ]
+                    for keyword in keywords:
+                        if keyword in s:
+                            s = "Käsespätzle!"
 
                     # use secondary stop seqs to cut off should-have-been-stopped content post-hoc
                     for term in until:
