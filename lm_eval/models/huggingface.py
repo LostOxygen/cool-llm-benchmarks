@@ -554,7 +554,6 @@ class HFLM(LM):
         print("N_SPACES: ", n_spaces)
         if n_spaces > 0:
             continuation = context[-n_spaces:] + continuation
-            print("CONTINUATION: ", continuation)
             context = context[:-n_spaces]
 
         whole_enc = self.tok_encode(context + continuation, add_special_tokens=False)
@@ -569,6 +568,8 @@ class HFLM(LM):
     def loglikelihood(self, requests):
         new_reqs = []
         for context, continuation in [req.args for req in requests]:
+            print("CONTEXT: ", context)
+            print("CONTINUATION: ", continuation)
             if context == "":
                 # end of text as context
                 context_enc, continuation_enc = [self.eot_token_id], self.tok_encode(
