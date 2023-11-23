@@ -445,7 +445,6 @@ class HFLM(LM):
         left_truncate_len: int = None,
         truncation: bool = False,
     ):
-        print("TOK_BATCH_ENCODE")
         # encode a batch of strings. converts to tensors and pads automatically, unlike tok_encode.
         old_padding_side = self.tokenizer.padding_side
         self.tokenizer.padding_side = padding_side
@@ -874,7 +873,6 @@ class HFLM(LM):
             )
             for chunk in chunks:
                 contexts, all_gen_kwargs = zip(*chunk)
-                print("\n CONTEXTS: ", contexts, "\n")
                 # we assume all gen kwargs in the batch are the same
                 # this is safe to assume because the `grouper` object ensures it.
                 gen_kwargs = all_gen_kwargs[0]
